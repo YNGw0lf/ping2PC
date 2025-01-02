@@ -1,45 +1,44 @@
 # README.md
 
-## Monitoraggio dello Stato di un PC Remoto
+## Monitoring the Status of a Remote PC
 
-Questo script Python consente di monitorare lo stato di un secondo PC (remoto) verificando periodicamente se è raggiungibile tramite il protocollo ICMP (ping). Quando il PC remoto risulta online, il programma invia una notifica desktop e termina l'esecuzione.
+This Python script allows you to monitor the status of a second (remote) PC by periodically checking if it is reachable using the ICMP protocol (ping). When the remote PC comes online, the program sends a desktop notification and terminates.
 
-### Requisiti
-Per utilizzare questo script, è necessario avere:
-- **Python 3.x** installato sul sistema.
-- I seguenti pacchetti Python:
-  - [`ping3`](https://pypi.org/project/ping3/): per effettuare il ping al PC remoto.
-  - [`plyer`](https://pypi.org/project/plyer/): per inviare notifiche desktop.
+### Requirements
+To use this script, you need:
+- **Python 3.x** installed on your system.
+- The following Python packages:
+  - [`ping3`](https://pypi.org/project/ping3/): for pinging the remote PC.
+  - [`plyer`](https://pypi.org/project/plyer/): for sending desktop notifications.
 
-Puoi installarli con il comando:
+You can install them with the command:
 ```bash
 pip install ping3 plyer
 ```
 
-### Funzionamento
+### How It Works
 
-1. **Input dell'indirizzo IP:**
-   - L'utente fornisce l'indirizzo IP del PC remoto da monitorare.
-   - Se l'indirizzo IP non viene fornito, il programma restituisce un errore.
+1. **IP Address Input:**
+   - The user provides the IP address of the remote PC to be monitored.
+   - If the IP address is not provided, the program returns an error.
 
-2. **Monitoraggio:**
-   - Lo script utilizza il modulo `ping3` per inviare richieste ICMP all'indirizzo IP specificato.
-   - Se il PC risponde al ping, significa che è online e lo script invia una notifica desktop.
-   - Se il PC non è online, il programma attende 5 secondi prima di riprovare.
+2. **Monitoring:**
+   - The script uses the `ping3` module to send ICMP requests to the specified IP address.
+   - If the PC responds to the ping, it means it is online, and the script sends a desktop notification.
+   - If the PC is not online, the program waits 5 seconds before trying again.
 
-3. **Notifica Desktop:**
-   - Quando il PC remoto diventa raggiungibile, il modulo `plyer` genera una notifica desktop con il messaggio: `"The PC is online."`.
-   - Dopo aver inviato la notifica, il programma termina.
+3. **Desktop Notification:**
+   - When the remote PC becomes reachable, the `plyer` module generates a desktop notification with the message: `"The PC is online."`.
+   - After sending the notification, the program terminates.
 
-
-### Come eseguire lo script
-1. Salva il codice in un file, ad esempio `script.py`.
-2. Esegui lo script tramite terminale o IDE Python:
+### How to Run the Script
+1. Save the code in a file, e.g., `script.py`.
+2. Run the script via terminal or Python IDE:
    ```bash
    python script.py
    ```
-3. Inserisci l'indirizzo IP del PC remoto quando richiesto.
+3. Enter the IP address of the remote PC when prompted.
 
-### Nota
-- Assicurati che il PC remoto risponda alle richieste ICMP (ping). Potrebbe essere necessario configurare il firewall sul PC remoto per consentire il ping.
-- Il programma si interrompe automaticamente quando il PC remoto diventa raggiungibile.
+### Note
+- Ensure the remote PC responds to ICMP (ping) requests. You may need to configure the firewall on the remote PC to allow ping.
+- The program automatically stops when the remote PC becomes reachable.

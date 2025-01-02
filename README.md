@@ -1,57 +1,45 @@
-## Come funziona:
+# README.md
 
-1.  check_pc_online invia un ping all'indirizzo IP del secondo PC. Se il ping ha successo, significa che il secondo PC è online.
-2.  Se il secondo PC è online, lo script invia una notifica tramite la libreria plyer.
-3.  Lo script si ripete ogni 5 secondi (puoi modificare il tempo di attesa se necessario).
-4.  Una volta che il secondo PC viene rilevato come acceso, il ciclo si interrompe e la notifica viene inviata.
+## Monitoraggio dello Stato di un PC Remoto
 
-## Avvio automatico dello script
+Questo script Python consente di monitorare lo stato di un secondo PC (remoto) verificando periodicamente se è raggiungibile tramite il protocollo ICMP (ping). Quando il PC remoto risulta online, il programma invia una notifica desktop e termina l'esecuzione.
 
-Per far partire automaticamente questo script ogni volta che accendi il primo PC, puoi:
+### Requisiti
+Per utilizzare questo script, è necessario avere:
+- **Python 3.x** installato sul sistema.
+- I seguenti pacchetti Python:
+  - [`ping3`](https://pypi.org/project/ping3/): per effettuare il ping al PC remoto.
+  - [`plyer`](https://pypi.org/project/plyer/): per inviare notifiche desktop.
 
-Windows: Aggiungere lo script alle Task Scheduler (Operazioni pianificate) in Windows.
-Linux: Utilizzare cron per eseguire lo script all'avvio del sistema.
+Puoi installarli con il comando:
+```bash
+pip install ping3 plyer
+```
 
-## Aggiungere lo script all'avvio su Windows:
+### Funzionamento
 
-1.  Cerca e apri Task Scheduler.
-2.  Crea una nuova attività.
-3.  Nella scheda Trigger, imposta l'azione su "All'avvio".
-4.  Nella scheda Action, imposta l'azione su "Avvia programma" e seleziona lo script Python da eseguire.
+1. **Input dell'indirizzo IP:**
+   - L'utente fornisce l'indirizzo IP del PC remoto da monitorare.
+   - Se l'indirizzo IP non viene fornito, il programma restituisce un errore.
 
-## Aggiungere lo script all'avvio su Linux:
+2. **Monitoraggio:**
+   - Lo script utilizza il modulo `ping3` per inviare richieste ICMP all'indirizzo IP specificato.
+   - Se il PC risponde al ping, significa che è online e lo script invia una notifica desktop.
+   - Se il PC non è online, il programma attende 5 secondi prima di riprovare.
 
-Aggiungi lo script a cron per eseguirlo all'avvio:
-crontab -e
-Aggiungi la seguente riga per eseguire lo script all'avvio:
-@reboot python3 /percorso/del/tuo/script.py
+3. **Notifica Desktop:**
+   - Quando il PC remoto diventa raggiungibile, il modulo `plyer` genera una notifica desktop con il messaggio: `"The PC is online."`.
+   - Dopo aver inviato la notifica, il programma termina.
 
-<h1>ENG explanation</h1>
 
-## How it works:
+### Come eseguire lo script
+1. Salva il codice in un file, ad esempio `script.py`.
+2. Esegui lo script tramite terminale o IDE Python:
+   ```bash
+   python script.py
+   ```
+3. Inserisci l'indirizzo IP del PC remoto quando richiesto.
 
-1.  check_pc_online sends a ping to the second PC's IP address. If the ping is successful, it means the second PC is online.
-2.  If the second PC is online, the script sends a notification via the plyer library.
-3.  The script repeats every 5 seconds (you can modify the waiting time if necessary).
-4.  Once the second PC is detected as being online, the loop stops, and the notification is sent.
-
-## Automatic script startup
-
-To run this script automatically every time you turn on your first PC, you can:
-
-Windows: Add the script to Task Scheduler.
-Linux: Use cron to run the script at system startup.
-
-## Adding the script to startup on Windows:
-
-1.  Open and search for Task Scheduler.
-2.  Create a new task.
-3.  In the Trigger tab, set the action to "At startup".
-4.  In the Action tab, set the action to "Start a program" and select the Python script to execute.
-
-## Adding the script to startup on Linux:
-
-Add the script to cron to run it at startup:
-crontab -e
-Add the following line to run the script at startup:
-@reboot python3 /path/to/your/script.py
+### Nota
+- Assicurati che il PC remoto risponda alle richieste ICMP (ping). Potrebbe essere necessario configurare il firewall sul PC remoto per consentire il ping.
+- Il programma si interrompe automaticamente quando il PC remoto diventa raggiungibile.
